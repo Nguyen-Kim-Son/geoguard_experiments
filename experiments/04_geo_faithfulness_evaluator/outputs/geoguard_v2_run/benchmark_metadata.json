@@ -1,1 +1,70 @@
-
+{
+  "runs": 3,
+  "systems": [
+    {
+      "group": "baseline",
+      "name": "basic_gis_copilot",
+      "precheck_crs": false,
+      "repair_geometry": false,
+      "schema_guard": false,
+      "map_critic": false,
+      "reflector": false
+    },
+    {
+      "group": "baseline",
+      "name": "planner_reflector",
+      "precheck_crs": true,
+      "repair_geometry": false,
+      "schema_guard": false,
+      "map_critic": false,
+      "reflector": true
+    },
+    {
+      "group": "baseline",
+      "name": "geoguard_copilot",
+      "precheck_crs": true,
+      "repair_geometry": true,
+      "schema_guard": true,
+      "map_critic": true,
+      "reflector": true
+    },
+    {
+      "group": "ablation",
+      "name": "without_data_profiler",
+      "precheck_crs": false,
+      "repair_geometry": true,
+      "schema_guard": false,
+      "map_critic": true,
+      "reflector": true
+    },
+    {
+      "group": "ablation",
+      "name": "without_geoguard_validator",
+      "precheck_crs": true,
+      "repair_geometry": false,
+      "schema_guard": false,
+      "map_critic": true,
+      "reflector": true
+    },
+    {
+      "group": "ablation",
+      "name": "without_map_quality_critic",
+      "precheck_crs": true,
+      "repair_geometry": true,
+      "schema_guard": true,
+      "map_critic": false,
+      "reflector": true
+    },
+    {
+      "group": "ablation",
+      "name": "without_reflector",
+      "precheck_crs": true,
+      "repair_geometry": true,
+      "schema_guard": true,
+      "map_critic": true,
+      "reflector": false
+    }
+  ],
+  "task_count": 6,
+  "note": "Bundle aligned to the GeoGuard paper structure. The paper's Table 4 values are draft placeholder results, so use paper_vs_run_summary.csv only as a reference comparison."
+}

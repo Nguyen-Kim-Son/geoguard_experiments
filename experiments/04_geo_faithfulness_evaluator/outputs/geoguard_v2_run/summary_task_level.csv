@@ -1,0 +1,43 @@
+task_id,task_name,task_type,system_group,system,ES,SC,PHR,CRSC,TV,SCH,MCS
+R001,Hospital service areas,buffer_service_area,baseline,basic_gis_copilot,1.0,0.625,0.6667,0.3333,1.0,0.0,0.0
+R002,Flood exposure overlay,overlay_intersection,baseline,basic_gis_copilot,1.0,1.0,1.0,0.0,1.0,1.0,0.0
+R003,Count schools per tract,point_count_join,baseline,basic_gis_copilot,1.0,1.0,1.0,0.0,1.0,1.0,0.0
+R004,Clip temperature raster,raster_clip,baseline,basic_gis_copilot,1.0,0.6667,1.0,0.0,1.0,1.0,0.0
+R005,Zonal statistics over census tracts,zonal_statistics,baseline,basic_gis_copilot,1.0,1.0,1.0,0.0,1.0,1.0,0.0
+R006,Choropleth export,choropleth_export,baseline,basic_gis_copilot,1.0,1.0,0.0,1.0,1.0,1.0,3.0
+R001,Hospital service areas,buffer_service_area,baseline,planner_reflector,1.0,0.625,0.0,1.0,1.0,0.0,0.0
+R002,Flood exposure overlay,overlay_intersection,baseline,planner_reflector,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R003,Count schools per tract,point_count_join,baseline,planner_reflector,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R004,Clip temperature raster,raster_clip,baseline,planner_reflector,1.0,0.6667,0.0,1.0,1.0,1.0,0.0
+R005,Zonal statistics over census tracts,zonal_statistics,baseline,planner_reflector,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R006,Choropleth export,choropleth_export,baseline,planner_reflector,1.0,1.0,0.0,1.0,1.0,1.0,3.0
+R001,Hospital service areas,buffer_service_area,baseline,geoguard_copilot,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R002,Flood exposure overlay,overlay_intersection,baseline,geoguard_copilot,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R003,Count schools per tract,point_count_join,baseline,geoguard_copilot,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R004,Clip temperature raster,raster_clip,baseline,geoguard_copilot,1.0,0.6667,0.0,1.0,1.0,1.0,0.0
+R005,Zonal statistics over census tracts,zonal_statistics,baseline,geoguard_copilot,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R006,Choropleth export,choropleth_export,baseline,geoguard_copilot,1.0,1.0,0.0,1.0,1.0,1.0,4.5
+R001,Hospital service areas,buffer_service_area,ablation,without_data_profiler,1.0,0.625,0.6667,0.3333,1.0,0.0,0.0
+R002,Flood exposure overlay,overlay_intersection,ablation,without_data_profiler,1.0,1.0,1.0,0.0,1.0,1.0,0.0
+R003,Count schools per tract,point_count_join,ablation,without_data_profiler,1.0,1.0,1.0,0.0,1.0,1.0,0.0
+R004,Clip temperature raster,raster_clip,ablation,without_data_profiler,1.0,0.6667,1.0,0.0,1.0,1.0,0.0
+R005,Zonal statistics over census tracts,zonal_statistics,ablation,without_data_profiler,1.0,1.0,1.0,0.0,1.0,1.0,0.0
+R006,Choropleth export,choropleth_export,ablation,without_data_profiler,1.0,1.0,0.0,1.0,1.0,1.0,4.5
+R001,Hospital service areas,buffer_service_area,ablation,without_geoguard_validator,1.0,0.625,0.0,1.0,1.0,0.0,0.0
+R002,Flood exposure overlay,overlay_intersection,ablation,without_geoguard_validator,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R003,Count schools per tract,point_count_join,ablation,without_geoguard_validator,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R004,Clip temperature raster,raster_clip,ablation,without_geoguard_validator,1.0,0.6667,0.0,1.0,1.0,1.0,0.0
+R005,Zonal statistics over census tracts,zonal_statistics,ablation,without_geoguard_validator,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R006,Choropleth export,choropleth_export,ablation,without_geoguard_validator,1.0,1.0,0.0,1.0,1.0,1.0,4.5
+R001,Hospital service areas,buffer_service_area,ablation,without_map_quality_critic,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R002,Flood exposure overlay,overlay_intersection,ablation,without_map_quality_critic,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R003,Count schools per tract,point_count_join,ablation,without_map_quality_critic,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R004,Clip temperature raster,raster_clip,ablation,without_map_quality_critic,1.0,0.6667,0.0,1.0,1.0,1.0,0.0
+R005,Zonal statistics over census tracts,zonal_statistics,ablation,without_map_quality_critic,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R006,Choropleth export,choropleth_export,ablation,without_map_quality_critic,1.0,1.0,0.0,1.0,1.0,1.0,3.0
+R001,Hospital service areas,buffer_service_area,ablation,without_reflector,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R002,Flood exposure overlay,overlay_intersection,ablation,without_reflector,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R003,Count schools per tract,point_count_join,ablation,without_reflector,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R004,Clip temperature raster,raster_clip,ablation,without_reflector,1.0,0.6667,0.0,1.0,1.0,1.0,0.0
+R005,Zonal statistics over census tracts,zonal_statistics,ablation,without_reflector,1.0,1.0,0.0,1.0,1.0,1.0,0.0
+R006,Choropleth export,choropleth_export,ablation,without_reflector,1.0,1.0,0.0,1.0,1.0,1.0,4.5

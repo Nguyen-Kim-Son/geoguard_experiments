@@ -1,0 +1,5 @@
+system_group,system,ES,SC,PHR,CRSC,TV,SCH,MCS,runs
+ablation,without_data_profiler,1.0,0.882,0.7778,0.2222,1.0,0.8333,4.5,18
+ablation,without_geoguard_validator,1.0,0.882,0.0,1.0,1.0,0.8333,4.5,18
+ablation,without_map_quality_critic,1.0,0.9445,0.0,1.0,1.0,1.0,3.0,18
+ablation,without_reflector,1.0,0.9445,0.0,1.0,1.0,1.0,4.5,18
