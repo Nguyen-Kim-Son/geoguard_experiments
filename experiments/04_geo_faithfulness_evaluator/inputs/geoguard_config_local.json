@@ -1,0 +1,200 @@
+{
+  "benchmark_name": "geoguard_colab_realdata_benchmark_lacounty",
+  "runs": 3,
+  "datasets": {
+    "hospital_points": {
+      "type": "vector",
+      "path": "data/raw/geoguard/geoguard/data/hospital_points.gpkg",
+      "layer": "hospital_points"
+    },
+    "study_boundary": {
+      "type": "vector",
+      "path": "data/raw/geoguard/geoguard/data/study_boundary.gpkg",
+      "layer": "study_boundary"
+    },
+    "census_tracts": {
+      "type": "vector",
+      "path": "data/raw/geoguard/geoguard/data/census_tracts.gpkg",
+      "layer": "census_tracts"
+    },
+    "flood_zones": {
+      "type": "vector",
+      "path": "data/raw/geoguard/geoguard/data/flood_zones.gpkg",
+      "layer": "flood_zones"
+    },
+    "school_points": {
+      "type": "vector",
+      "path": "data/raw/geoguard/geoguard/data/school_points.gpkg",
+      "layer": "school_points"
+    },
+    "temperature_raster": {
+      "type": "raster",
+      "path": "data/raw/geoguard/geoguard/data/temperature_raster.tif"
+    },
+    "zonal_input_for_map": {
+      "type": "vector",
+      "path": "data/raw/geoguard/geoguard/data/zonal_input_for_map.gpkg",
+      "layer": "zonal_input_for_map"
+    }
+  },
+  "source_urls": {
+    "hospital_points": "https://public.gis.lacounty.gov/public/rest/services/LACounty_Dynamic/LMS_Data_Public/MapServer/81/query?where=1%3D1&outFields=*&f=geojson",
+    "study_boundary": "https://www2.census.gov/geo/tiger/TIGER2025/COUNTY/tl_2025_us_county.zip",
+    "census_tracts": "https://www2.census.gov/geo/tiger/TIGER2025/TRACT/tl_2025_06_tract.zip",
+    "flood_zones": "https://dpw.gis.lacounty.gov/dpw/rest/services/FEMAFloodzoneAdopted/MapServer/12/query?where=1%3D1&outFields=*&f=geojson",
+    "school_points": "https://nces.ed.gov/programs/edge/data/EDGE_GEOCODE_PUBLICSCH_2425.zip",
+    "temperature_raster": "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_10m_tavg.zip"
+  },
+  "tasks": [
+    {
+      "task_id": "R001",
+      "name": "Hospital service areas",
+      "type": "buffer_service_area",
+      "category": "Vector basic",
+      "difficulty": "easy",
+      "inputs": {
+        "source": "hospital_points",
+        "clip_boundary": "study_boundary"
+      },
+      "params": {
+        "distance": 1000,
+        "distance_unit": "meters",
+        "target_epsg": 3857,
+        "dissolve": false
+      },
+      "required_input_fields": [
+        "name"
+      ],
+      "expectations": {
+        "require_non_empty": true,
+        "expected_geometry": "Polygon",
+        "required_output_fields": [
+          "name"
+        ],
+        "min_features": 1
+      }
+    },
+    {
+      "task_id": "R002",
+      "name": "Flood exposure overlay",
+      "type": "overlay_intersection",
+      "category": "Vector advanced",
+      "difficulty": "medium",
+      "inputs": {
+        "input_a": "census_tracts",
+        "input_b": "flood_zones"
+      },
+      "params": {
+        "target_epsg": 3857,
+        "overlay_prefix": "fz_"
+      },
+      "expectations": {
+        "require_non_empty": true,
+        "expected_geometry": "Polygon",
+        "required_output_fields": [
+          "tract_id"
+        ],
+        "min_features": 1
+      }
+    },
+    {
+      "task_id": "R003",
+      "name": "Count schools per tract",
+      "type": "point_count_join",
+      "category": "Vector basic",
+      "difficulty": "easy",
+      "inputs": {
+        "target": "census_tracts",
+        "join": "school_points"
+      },
+      "params": {
+        "target_epsg": 3857,
+        "predicate": "intersects",
+        "group_field": "tract_id",
+        "count_field": "school_count"
+      },
+      "expectations": {
+        "require_non_empty": true,
+        "expected_geometry": "Polygon",
+        "required_output_fields": [
+          "tract_id",
+          "school_count"
+        ],
+        "min_features": 1
+      }
+    },
+    {
+      "task_id": "R004",
+      "name": "Clip temperature raster",
+      "type": "raster_clip",
+      "category": "Raster basic",
+      "difficulty": "medium",
+      "inputs": {
+        "raster": "temperature_raster",
+        "mask": "study_boundary"
+      },
+      "params": {
+        "nodata": -9999
+      },
+      "expectations": {
+        "require_non_empty": true,
+        "min_width": 10,
+        "min_height": 10
+      }
+    },
+    {
+      "task_id": "R005",
+      "name": "Zonal statistics over census tracts",
+      "type": "zonal_statistics",
+      "category": "Raster-vector fusion",
+      "difficulty": "medium",
+      "inputs": {
+        "polygons": "census_tracts",
+        "raster": "temperature_raster"
+      },
+      "params": {
+        "stats": [
+          "mean",
+          "sum"
+        ],
+        "column_prefix": "temp_"
+      },
+      "expectations": {
+        "require_non_empty": true,
+        "expected_geometry": "Polygon",
+        "required_output_fields": [
+          "tract_id",
+          "temp_mean",
+          "temp_sum"
+        ],
+        "min_features": 1
+      }
+    },
+    {
+      "task_id": "R006",
+      "name": "Choropleth export",
+      "type": "choropleth_export",
+      "category": "Visualization",
+      "difficulty": "hard",
+      "inputs": {
+        "layer": "zonal_input_for_map"
+      },
+      "params": {
+        "field": "temp_mean",
+        "classes": 5,
+        "scheme": "Quantiles",
+        "cmap": "Blues",
+        "title": "Temperature by census tract - Los Angeles County",
+        "legend_title": "Mean temperature"
+      },
+      "expectations": {
+        "require_non_empty": true,
+        "expected_geometry": "Polygon",
+        "required_output_fields": [
+          "temp_mean"
+        ],
+        "min_features": 1
+      }
+    }
+  ]
+}
